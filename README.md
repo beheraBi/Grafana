@@ -46,5 +46,24 @@ Grafana supports the following databases
 ## Installing Grafana
 
 [Install Grafana](https://grafana.com/docs/grafana/latest/installation/)
+[Install on Windows](https://grafana.com/docs/grafana/latest/installation/windows/)
+
+By default, you can access the web server at http://localhost:3000/.
+
+Log in using the default credentials:
+
+**username:**	admin
+**password:** admin	
+
+When you log in for the first time, Grafana asks you to change your password.
+
+## Documentation
+- [Grafana documentation](https://grafana.com/docs/grafana/latest/)
+- [Watch Grafana in action](https://play.grafana.org/d/000000012/grafana-play-home?orgId=1)
+
+## Training Materials
+
+* https://www.youtube.com/watch?v=4qpI4T6_bUw
+* https://grafana.com/tutorials/  
 
 
