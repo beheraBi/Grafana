@@ -66,5 +66,7 @@ Following are the default credentials required to login:
 ## Training Materials
 * https://grafana.com/tutorials/ 
 * https://www.youtube.com/watch?v=4qpI4T6_bUw
+* https://www.youtube.com/watch?v=-xlchgoqkqY
+* https://www.youtube.com/watch?v=yq3GEs_nV0s
 
 
