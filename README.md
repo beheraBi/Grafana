@@ -13,15 +13,15 @@ Grafana allows you to query, visualize, alert on and understand your metrics no 
 - **Alerting:** Visually define alert rules for your most important metrics. Grafana will continuously evaluate and send notifications to systems like Slack, PagerDuty, VictorOps, OpsGenie.
 - **Mixed Data Sources:** Mix different data sources in the same graph! You can specify a data source on a per-query basis. This works for even custom datasources.
 
-## Basic Requirements of Grafana:
+## Basic Requirements of Grafana
 
-### Supported Operating Systems:
+### Supported Operating Systems
 1. Debian / Ubuntu
 2. RPM-based Linux
 3. macOS
 4. Windows
 
-### Hardware Recommendations:
+### Hardware Recommendations
 1. Grafana is very lightweight in use of memory and CPU and doesn't use a lot of resources.
 2. Minimum recommended memory: 255 MB
    Minimum recommended CPU: 1
@@ -36,7 +36,7 @@ Grafana supports the following databases
 
 **Note:** By default, Grafana installs with and uses SQLite, which is an embedded database stored in the Grafana installation location.
 
-### Supported Web Browsers:
+### Supported Web Browsers
 - Çhrome
 - Firefox
 - Safari
