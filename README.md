@@ -57,13 +57,14 @@ Following are the default credentials required to login:
 
 **Note**: When you log in for the first time, Grafana asks you to change your password.
 
-## Documentation
-- [Grafana documentation](https://grafana.com/docs/grafana/latest/)
 - [Watch Grafana in action](https://play.grafana.org/d/000000012/grafana-play-home?orgId=1)
 
-## Training Materials
+## Documentation
+- [Grafana documentation](https://grafana.com/docs/grafana/latest/)
+- [GitHub Repository](https://github.com/grafana/grafana)
 
+## Training Materials
+* https://grafana.com/tutorials/ 
 * https://www.youtube.com/watch?v=4qpI4T6_bUw
-* https://grafana.com/tutorials/  
 
 
