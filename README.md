@@ -16,20 +16,24 @@ Grafana allows you to query, visualize, alert on and understand your metrics no 
 ## Basic Requirements of Grafana
 
 ### Supported Operating Systems
+
 1. Debian / Ubuntu
 2. RPM-based Linux
 3. macOS
 4. Windows
 
 ### Hardware Recommendations
+
 1. Grafana is very lightweight in use of memory and CPU and doesn't use a lot of resources.
 2. Minimum recommended memory: 255 MB
    Minimum recommended CPU: 1
-   
+
 ### Supported Databases
+
 Grafana requires a database to store its configuration data, such as users, data sources, and dashboards. The exact requirements depend on the size of the Grafana installation and features used.
 
 Grafana supports the following databases
+
 - SQLite
 - MYSQL
 - PostgreSQL
@@ -37,6 +41,7 @@ Grafana supports the following databases
 **Note:** By default, Grafana installs with and uses SQLite, which is an embedded database stored in the Grafana installation location.
 
 ### Supported Web Browsers
+
 - Çhrome
 - Firefox
 - Safari
@@ -52,21 +57,23 @@ After Grafana installation, you can access the web server at http://localhost:30
 
 Following are the default credentials required to login:
 
-**username:**	admin<br>
-**password:** admin	
+**username:** admin<br>
+**password:** admin
 
 **Note**: When you log in for the first time, Grafana asks you to change your password.
 
 - [Watch Grafana in action](https://play.grafana.org/d/000000012/grafana-play-home?orgId=1)
 
 ## Documentation
+
 - [Grafana documentation](https://grafana.com/docs/grafana/latest/)
 - [GitHub Repository](https://github.com/grafana/grafana)
 
 ## Training Materials
-* https://grafana.com/tutorials/ 
-* https://www.youtube.com/watch?v=4qpI4T6_bUw
-* https://www.youtube.com/watch?v=-xlchgoqkqY
-* https://www.youtube.com/watch?v=yq3GEs_nV0s
 
+- https://grafana.com/tutorials/
+- https://www.youtube.com/watch?v=4qpI4T6_bUw
+- https://www.youtube.com/watch?v=-xlchgoqkqY
+- https://www.youtube.com/watch?v=yq3GEs_nV0s
 
+============================
