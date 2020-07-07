@@ -1,4 +1,3 @@
-
 import './graph';
 import './legend';
 import './series_overrides_ctrl';
@@ -115,7 +114,7 @@ class GraphCtrl extends MetricsPanelCtrl {
   /** @ngInject */
   constructor($scope, $injector, private annotationsSrv) {
     super($scope, $injector);
-    
+
     _.defaults(this.panel, this.panelDefaults);
     _.defaults(this.panel.tooltip, this.panelDefaults.tooltip);
     _.defaults(this.panel.legend, this.panelDefaults.legend);
@@ -199,7 +198,8 @@ class GraphCtrl extends MetricsPanelCtrl {
         if (series.isOutsideRange) {
           this.dataWarning = {
             title: 'Data points outside time range',
-            tip: 'Can be caused by timezone mismatch or missing time filter in query',
+            tip:
+              'Can be caused by timezone mismatch or missing time filter in query',
           };
           break;
         }
@@ -207,7 +207,7 @@ class GraphCtrl extends MetricsPanelCtrl {
     }
 
     this.annotationsPromise.then(
-      result => {
+      (result) => {
         this.loading = false;
         this.alertState = result.alertState;
         this.annotations = result.annotations;
@@ -228,9 +228,10 @@ class GraphCtrl extends MetricsPanelCtrl {
     for (let series of this.seriesList) {
       series.applySeriesOverrides(this.panel.seriesOverrides);
 
-      if (series.unit) {
-        this.panel.yaxes[series.yaxis - 1].format = series.unit;
-      }
+      // commented for y-axis toggle to work
+      // if (series.unit) {
+      //   this.panel.yaxes[series.yaxis - 1].format = series.unit;
+      // }
     }
   }
 
@@ -261,7 +262,7 @@ class GraphCtrl extends MetricsPanelCtrl {
     }
 
     // check if every other series is hidden
-    var alreadyExclusive = _.every(this.seriesList, value => {
+    var alreadyExclusive = _.every(this.seriesList, (value) => {
       if (value.alias === serie.alias) {
         return true;
       }
@@ -271,12 +272,12 @@ class GraphCtrl extends MetricsPanelCtrl {
 
     if (alreadyExclusive) {
       // remove all hidden series
-      _.each(this.seriesList, value => {
+      _.each(this.seriesList, (value) => {
         delete this.hiddenSeries[value.alias];
       });
     } else {
       // hide all but this serie
-      _.each(this.seriesList, value => {
+      _.each(this.seriesList, (value) => {
         if (value.alias === serie.alias) {
           return;
         }
@@ -286,7 +287,7 @@ class GraphCtrl extends MetricsPanelCtrl {
     }
   }
 
-  toggleAxis(info) {
+  onToggleAxis = (info) => {
     var override = _.find(this.panel.seriesOverrides, { alias: info.alias });
     if (!override) {
       override = { alias: info.alias };
@@ -294,14 +295,17 @@ class GraphCtrl extends MetricsPanelCtrl {
     }
     info.yaxis = override.yaxis = info.yaxis === 2 ? 1 : 2;
     this.render();
-  }
+  };
 
   addSeriesOverride(override) {
     this.panel.seriesOverrides.push(override || {});
   }
 
   removeSeriesOverride(override) {
-    this.panel.seriesOverrides = _.without(this.panel.seriesOverrides, override);
+    this.panel.seriesOverrides = _.without(
+      this.panel.seriesOverrides,
+      override
+    );
     this.render();
   }
 
@@ -312,7 +316,8 @@ class GraphCtrl extends MetricsPanelCtrl {
 
   legendValuesOptionChanged() {
     var legend = this.panel.legend;
-    legend.values = legend.min || legend.max || legend.avg || legend.current || legend.total;
+    legend.values =
+      legend.min || legend.max || legend.avg || legend.current || legend.total;
     this.render();
   }
 

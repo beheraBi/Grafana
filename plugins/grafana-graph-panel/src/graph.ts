@@ -27,7 +27,7 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
   return {
     restrict: 'A',
     template: '',
-    link: function(scope, elem) {
+    link: function (scope, elem) {
       var ctrl = scope.ctrl;
       var dashboard = ctrl.dashboard;
       var panel = ctrl.panel;
@@ -38,7 +38,7 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
       var panelWidth = 0;
       var eventManager = new EventManager(ctrl);
       var thresholdManager = new ThresholdManager(ctrl);
-      var tooltip = new GraphTooltip(elem, dashboard, scope, function() {
+      var tooltip = new GraphTooltip(elem, dashboard, scope, function () {
         return sortedSeries;
       });
 
@@ -58,7 +58,7 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
        * (see ctrl.events.on('render') in legend.ts).
        * When legend is rendered it emits 'legend-rendering-complete' and graph rendered.
        */
-      ctrl.events.on('render', renderData => {
+      ctrl.events.on('render', (renderData) => {
         data = renderData || data;
         if (!data) {
           return;
@@ -77,14 +77,18 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
       // global events
       appEvents.on(
         'graph-hover',
-        evt => {
+        (evt) => {
           // ignore other graph hover events if shared tooltip is disabled
           if (!dashboard.sharedTooltipModeEnabled()) {
             return;
           }
 
           // ignore if we are the emitter
-          if (!plot || evt.panel.id === panel.id || ctrl.otherPanelInFullscreenMode()) {
+          if (
+            !plot ||
+            evt.panel.id === panel.id ||
+            ctrl.otherPanelInFullscreenMode()
+          ) {
             return;
           }
 
@@ -131,7 +135,9 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
         }
 
         if (ctrl.dataWarning) {
-          $(`<div class="datapoints-warning flot-temp-elem">${ctrl.dataWarning.title}</div>`).appendTo(elem);
+          $(
+            `<div class="datapoints-warning flot-temp-elem">${ctrl.dataWarning.title}</div>`
+          ).appendTo(elem);
         }
 
         thresholdManager.draw(plot);
@@ -152,8 +158,10 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
         for (var i = 0; i < yaxis.length; i++) {
           var axis = yaxis[i];
           var panelOptions = panel.yaxes[i];
-          axis.options.max = axis.options.max !== null ? axis.options.max : panelOptions.max;
-          axis.options.min = axis.options.min !== null ? axis.options.min : panelOptions.min;
+          axis.options.max =
+            axis.options.max !== null ? axis.options.max : panelOptions.max;
+          axis.options.min =
+            axis.options.min !== null ? axis.options.min : panelOptions.min;
         }
       }
 
@@ -172,7 +180,11 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
               continue;
             }
           } else {
-            if (typeof data[i].bars === 'undefined' || typeof data[i].bars.show === 'undefined' || !data[i].bars.show) {
+            if (
+              typeof data[i].bars === 'undefined' ||
+              typeof data[i].bars.show === 'undefined' ||
+              !data[i].bars.show
+            ) {
               continue;
             }
           }
@@ -212,7 +224,9 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
       function buildFlotPairs(data) {
         for (let i = 0; i < data.length; i++) {
           let series = data[i];
-          series.data = series.getFlotPairs(series.nullPointMode || panel.nullPointMode);
+          series.data = series.getFlotPairs(
+            series.nullPointMode || panel.nullPointMode
+          );
 
           // if hidden remove points and disable stack
           if (ctrl.hiddenSeries[series.alias]) {
@@ -241,8 +255,8 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
             let values = getSeriesValues(data);
 
             if (data.length && values.length) {
-              let histMin = _.min(_.map(data, (s:any) => s.stats.min));
-              let histMax = _.max(_.map(data, (s:any) => s.stats.max));
+              let histMin = _.min(_.map(data, (s: any) => s.stats.min));
+              let histMax = _.max(_.map(data, (s: any) => s.stats.max));
               let ticks = panel.xaxis.buckets || panelWidth / 50;
               bucketSize = tickStep(histMin, histMax, ticks);
               let histogram = convertValuesToHistogram(values, bucketSize);
@@ -346,7 +360,7 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
           },
           crosshair: {
             mode: 'x',
-            color: "rgb(255, 255, 255)",
+            color: 'rgb(255, 255, 255)',
           },
         };
         return options;
@@ -394,7 +408,9 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
 
       function addTimeAxis(options) {
         var ticks = panelWidth / 100;
-        var min = _.isUndefined(ctrl.range.from) ? null : ctrl.range.from.valueOf();
+        var min = _.isUndefined(ctrl.range.from)
+          ? null
+          : ctrl.range.from.valueOf();
         var max = _.isUndefined(ctrl.range.to) ? null : ctrl.range.to.valueOf();
 
         options.xaxis = {
@@ -410,7 +426,7 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
       }
 
       function addXSeriesAxis(options) {
-        var ticks = _.map(data, function(series: any, index) {
+        var ticks = _.map(data, function (series: any, index) {
           return [index + 1, series.alias];
         });
 
@@ -430,7 +446,7 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
         let defaultTicks = panelWidth / 50;
 
         if (data.length && bucketSize) {
-          ticks = _.map(data[0].data, point => point[0]);
+          ticks = _.map(data[0].data, (point) => point[0]);
           min = _.min(ticks);
           max = _.max(ticks);
 
@@ -472,8 +488,8 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
       }
 
       function addXTableAxis(options) {
-        var ticks = _.map(data, function(series: any, seriesIndex) {
-          return _.map(series.datapoints, function(point, pointIndex) {
+        var ticks = _.map(data, function (series: any, seriesIndex) {
+          return _.map(series.datapoints, function (point, pointIndex) {
             var tickIndex = seriesIndex * series.datapoints.length + pointIndex;
             return [tickIndex + 1, point[1]];
           });
@@ -516,10 +532,16 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
           options.yaxes.push(secondY);
 
           applyLogScale(options.yaxes[1], data);
-          configureAxisMode(options.yaxes[1], panel.percentage && panel.stack ? 'percent' : panel.yaxes[1].format);
+          configureAxisMode(
+            options.yaxes[1],
+            panel.percentage && panel.stack ? 'percent' : panel.yaxes[1].format
+          );
         }
         applyLogScale(options.yaxes[0], data);
-        configureAxisMode(options.yaxes[0], panel.percentage && panel.stack ? 'percent' : panel.yaxes[0].format);
+        configureAxisMode(
+          options.yaxes[0],
+          panel.percentage && panel.stack ? 'percent' : panel.yaxes[0].format
+        );
       }
 
       function parseNumber(value: any) {
@@ -560,10 +582,12 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
           }
         }
 
-        axis.transform = function(v) {
-          return v < Number.MIN_VALUE ? null : Math.log(v) / Math.log(axis.logBase);
+        axis.transform = function (v) {
+          return v < Number.MIN_VALUE
+            ? null
+            : Math.log(v) / Math.log(axis.logBase);
         };
-        axis.inverseTransform = function(v) {
+        axis.inverseTransform = function (v) {
           return Math.pow(axis.logBase, v);
         };
 
@@ -579,12 +603,16 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
         if (axis.min) {
           min = axis.inverseTransform(Math.ceil(axis.transform(axis.min)));
         } else {
-          min = axis.min = axis.inverseTransform(Math.floor(axis.transform(min)));
+          min = axis.min = axis.inverseTransform(
+            Math.floor(axis.transform(min))
+          );
         }
         if (axis.max) {
           max = axis.inverseTransform(Math.floor(axis.transform(axis.max)));
         } else {
-          max = axis.max = axis.inverseTransform(Math.ceil(axis.transform(max)));
+          max = axis.max = axis.inverseTransform(
+            Math.ceil(axis.transform(max))
+          );
         }
 
         if (!min || min < Number.MIN_VALUE || !max || max < Number.MIN_VALUE) {
@@ -634,8 +662,12 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
       }
 
       function configureAxisMode(axis, format) {
-        axis.tickFormatter = function(val, axis) {
-          return kbn.valueFormats[format](val, axis.tickDecimals, axis.scaledDecimals);
+        axis.tickFormatter = function (val, axis) {
+          return kbn.valueFormats[format](
+            val,
+            axis.tickDecimals,
+            axis.scaledDecimals
+          );
         };
       }
 
@@ -664,7 +696,7 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
         return '%H:%M';
       }
 
-      elem.bind('plotselected', function(event, ranges) {
+      elem.bind('plotselected', function (event, ranges) {
         if (panel.xaxis.mode !== 'time') {
           // Skip if panel in histogram or series mode
           plot.clearSelection();
@@ -677,7 +709,7 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
             eventManager.updateTime(ranges.xaxis);
           }, 100);
         } else {
-          scope.$apply(function() {
+          scope.$apply(function () {
             timeSrv.setTime({
               from: moment.utc(ranges.xaxis.from),
               to: moment.utc(ranges.xaxis.to),
@@ -686,7 +718,7 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
         }
       });
 
-      elem.bind('plotclick', function(event, pos, item) {
+      elem.bind('plotclick', function (event, pos, item) {
         if (panel.xaxis.mode !== 'time') {
           // Skip if panel in histogram or series mode
           return;
@@ -703,7 +735,7 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
         }
       });
 
-      scope.$on('$destroy', function() {
+      scope.$on('$destroy', function () {
         tooltip.destroy();
         elem.off();
         elem.remove();

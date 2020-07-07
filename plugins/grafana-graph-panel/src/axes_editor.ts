@@ -1,4 +1,3 @@
-
 import kbn from 'grafana/app/core/utils/kbn';
 
 export class AxesEditorCtrl {
@@ -68,8 +67,11 @@ export class AxesEditorCtrl {
   }
 
   getDataFieldNames(onlyNumbers) {
-    var props = this.panelCtrl.processor.getDataFieldNames(this.panelCtrl.dataList, onlyNumbers);
-    var items = props.map(prop => {
+    var props = this.panelCtrl.processor.getDataFieldNames(
+      this.panelCtrl.dataList,
+      onlyNumbers
+    );
+    var items = props.map((prop) => {
       return { text: prop, value: prop };
     });
 
@@ -83,7 +85,8 @@ export function axesEditorComponent() {
   return {
     restrict: 'E',
     scope: true,
-    templateUrl: 'public/plugins/something-else-graph-panel/partials/axes_editor.html',
+    templateUrl:
+      'public/plugins/something-else-graph-panel/partials/axes_editor.html',
     controller: AxesEditorCtrl,
   };
 }

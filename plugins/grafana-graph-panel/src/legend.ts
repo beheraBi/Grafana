@@ -5,9 +5,9 @@ import PerfectScrollbar from 'perfect-scrollbar';
 
 var module = angular.module('grafana.directives');
 
-module.directive('somethingElseLegend', function(popoverSrv, $timeout) {
+module.directive('somethingElseLegend', function (popoverSrv, $timeout) {
   return {
-    link: function(scope: any, elem) {
+    link: function (scope: any, elem) {
       var firstRender = true;
       var ctrl = scope.ctrl;
       var panel = ctrl.panel;
@@ -16,7 +16,7 @@ module.directive('somethingElseLegend', function(popoverSrv, $timeout) {
       var i;
       var legendScrollbar;
 
-      scope.$on('$destroy', function() {
+      scope.$on('$destroy', function () {
         if (legendScrollbar) {
           legendScrollbar.destroy();
         }
@@ -44,21 +44,19 @@ module.directive('somethingElseLegend', function(popoverSrv, $timeout) {
         var index = getSeriesIndexForElement(el);
         var series = seriesList[index];
 
-        $timeout(function() {
+        $timeout(function () {
           popoverSrv.show({
             element: el[0],
-            position: 'bottom left',
-            targetAttachment: 'top left',
+            position: 'right middle',
             template:
-              '<series-color-picker series="series" onToggleAxis="toggleAxis" onColorChange="colorSelected">' +
-              '</series-color-picker>',
-            openOn: 'hover',
+              '<series-color-picker-popover checked="true" series="series" onToggleAxis="toggleAxis" onColorChange="colorSelected" />',
+            classNames: 'drop-popover drop-popover--transparent',
+            openOn: 'click',
             model: {
-              series: series,
-              toggleAxis: function() {
-                ctrl.toggleAxis(series);
+              toggleAxis: function () {
+                ctrl.onToggleAxis(series);
               },
-              colorSelected: function(color) {
+              colorSelected: function (color) {
                 ctrl.changeSeriesColor(series, color);
               },
             },
@@ -100,10 +98,13 @@ module.directive('somethingElseLegend', function(popoverSrv, $timeout) {
         if (!panel.legend[statName]) {
           return '';
         }
-        var html = '<th class="pointer" data-stat="' + statName + '">' + statName;
+        var html =
+          '<th class="pointer" data-stat="' + statName + '">' + statName;
 
         if (panel.legend.sort === statName) {
-          var cssClass = panel.legend.sortDesc ? 'fa fa-caret-down' : 'fa fa-caret-up';
+          var cssClass = panel.legend.sortDesc
+            ? 'fa fa-caret-down'
+            : 'fa fa-caret-up';
           html += ' <span class="' + cssClass + '"></span>';
         }
 
@@ -129,10 +130,16 @@ module.directive('somethingElseLegend', function(popoverSrv, $timeout) {
         elem.empty();
 
         // Set min-width if side style and there is a value, otherwise remove the CSS propery
-        var width = panel.legend.rightSide && panel.legend.sideWidth ? panel.legend.sideWidth + 'px' : '';
+        var width =
+          panel.legend.rightSide && panel.legend.sideWidth
+            ? panel.legend.sideWidth + 'px'
+            : '';
         elem.css('min-width', width);
 
-        elem.toggleClass('graph-legend-table', panel.legend.alignAsTable === true);
+        elem.toggleClass(
+          'graph-legend-table',
+          panel.legend.alignAsTable === true
+        );
 
         var tableHeaderElem;
         if (panel.legend.alignAsTable) {
@@ -150,7 +157,7 @@ module.directive('somethingElseLegend', function(popoverSrv, $timeout) {
         }
 
         if (panel.legend.sort) {
-          seriesList = _.sortBy(seriesList, function(series) {
+          seriesList = _.sortBy(seriesList, function (series) {
             return series.stats[panel.legend.sort];
           });
           if (panel.legend.sortDesc) {
@@ -175,6 +182,7 @@ module.directive('somethingElseLegend', function(popoverSrv, $timeout) {
           if (series.hideFromLegend(panel.legend)) {
             continue;
           }
+          console.log('...........series.yaxis..', series.yaxis);
 
           var html = '<div class="graph-legend-series';
 
@@ -186,11 +194,18 @@ module.directive('somethingElseLegend', function(popoverSrv, $timeout) {
           }
           html += '" data-series-index="' + i + '">';
           html += '<div class="graph-legend-icon">';
-          html += '<i class="fa fa-minus pointer" style="color:' + series.color + '"></i>';
+          html +=
+            '<i class="fa fa-minus pointer" style="color:' +
+            series.color +
+            '"></i>';
           html += '</div>';
 
           html +=
-            '<a class="graph-legend-alias pointer" title="' + series.aliasEscaped + '">' + series.aliasEscaped + '</a>';
+            '<a class="graph-legend-alias pointer" title="' +
+            series.aliasEscaped +
+            '">' +
+            series.aliasEscaped +
+            '</a>';
 
           if (panel.legend.values) {
             var avg = series.formatValue(series.stats.avg);
@@ -209,10 +224,12 @@ module.directive('somethingElseLegend', function(popoverSrv, $timeout) {
               html += '<div class="graph-legend-value avg">' + avg + '</div>';
             }
             if (panel.legend.current) {
-              html += '<div class="graph-legend-value current">' + current + '</div>';
+              html +=
+                '<div class="graph-legend-value current">' + current + '</div>';
             }
             if (panel.legend.total) {
-              html += '<div class="graph-legend-value total">' + total + '</div>';
+              html +=
+                '<div class="graph-legend-value total">' + total + '</div>';
             }
           }
 
