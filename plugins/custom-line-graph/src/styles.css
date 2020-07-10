@@ -1,0 +1,48 @@
+.y-axis line {
+	opacity: 0;
+  }
+  .y-axis path {
+	display: none;
+  }
+  .line {
+	fill: none;
+	stroke-width: 1.5px;
+	opacity: 0.75;
+  }
+  .overlay {
+	fill: none;
+	pointer-events: all;
+  }
+
+  .hoverCircle {
+	opacity: 0.75;
+	color:white;
+  }
+
+  .domain{
+	  stroke: none;
+  }
+
+  .legend-container{
+    position: absolute;
+    top: 90%;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .legend-item{
+    display: flex;
+    align-items: center;
+    padding: 15px;
+  }
+
+  .legend-rect{
+    height: 3px;
+    width: 15px;
+    margin-right:5px ;
+  }
+
