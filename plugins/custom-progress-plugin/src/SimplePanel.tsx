@@ -3,66 +3,29 @@ import { PanelProps } from '@grafana/data';
 import { SimpleOptions } from 'types';
 import { css, cx } from 'emotion';
 import { stylesFactory, useTheme } from '@grafana/ui';
-import './SimplePanel.css';
-
-const DonutChart = ({
-  value = 0,
-  size = 100,
-  strokewidth = 15,
-  chartTextSize = 20,
-  gradientColorFrom = '#3A9EDC',
-  gradientColorTo = '#3ADCB5',
-}) => {
-  const halfsize = size * 0.5;
-  const radius = halfsize - strokewidth * 0.5;
-  const circumference = 2 * Math.PI * radius;
-  const strokeval = (value * circumference) / 100;
-  const dashval = strokeval + ' ' + circumference;
-
-  const trackstyle = { strokeWidth: strokewidth };
-  const indicatorstyle = { strokeWidth: strokewidth, strokeDasharray: dashval };
-  const rotateval = 'rotate(-90 ' + halfsize + ',' + halfsize + ')';
-
-  return (
-    <svg width={size} height={size} className="donutchart">
-      <linearGradient id="sky">
-        <stop stop-color={`${gradientColorTo}`} offset="0%" />
-        <stop stop-color={`${gradientColorFrom}`} offset="100%" />
-      </linearGradient>
-      <circle
-        r={radius}
-        cx={halfsize}
-        cy={halfsize}
-        transform={rotateval}
-        style={trackstyle}
-        className="donutchart-track"
-      />
-      <circle
-        r={radius}
-        cx={halfsize}
-        cy={halfsize}
-        transform={rotateval}
-        style={indicatorstyle}
-        stroke="url(#sky)"
-        className="donutchart-indicator"
-      />
-      <text className="donutchart-text" x={halfsize} y={halfsize + 9} style={{ textAnchor: 'middle' }}>
-        <tspan className="donutchart-text-val" style={{ fontSize: `${chartTextSize}px` }}>
-          {value}%
-        </tspan>
-      </text>
-    </svg>
-  );
-};
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 interface Props extends PanelProps<SimpleOptions> {}
 
-export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) => {
+export const SimplePanel: React.FC<Props> = props => {
+  const { options, data, width, height } = props;
   const theme = useTheme();
   const styles = getStyles();
-  console.log({data});
+
+  let strokeColor = 'red';
+  let dataValues = data['series'][0]['fields'][1]['values']['buffer'];
+
+  let percentage = dataValues[dataValues.length - 1];
+
+  let thresholds = props.fieldConfig.defaults.thresholds?.steps || []
+
+  for (const iterator of thresholds) {
+    if (percentage >= iterator.value) { 
+      strokeColor = iterator.color
+    }
+  }
   
-  const { licenseUsageText, strokewidth, chartTextSize, gradientColorFrom, gradientColorTo } = options;
   return (
     <div
       className={cx(
@@ -73,25 +36,47 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
         `
       )}
     >
-      <div className={cx(styles.mainContainer)}>
-        <div>
-          <DonutChart
-            value={58}
-            strokewidth={strokewidth}
-            size={height}
-            chartTextSize={chartTextSize}
-            gradientColorTo={gradientColorTo}
-            gradientColorFrom={gradientColorFrom}
-          ></DonutChart>
-        </div>
-        <div className="textContainer">
-          <h4 className="text-heading">
-            <span className="text-heading-primary">555</span>
-            <span className="text-heading-secondary">/567</span>
-          </h4>
-          <p className="text-paragraph">{licenseUsageText}</p>
-        </div>
-      </div>
+      <CircularProgressbar
+        value={percentage}
+        text={`${percentage}%`}
+        strokeWidth={options.strokewidth}
+        styles={{
+          // Customize the root svg element
+          root: {
+            width: `${width}px`,
+            height: `${height}px`,
+          },
+          // Customize the path, i.e. the "completed progress"
+          path: {
+            // Path color
+            stroke: `${strokeColor}`,
+            // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+            strokeLinecap: 'butt',
+            // Customize transition animation
+            transition: 'stroke-dashoffset 0.5s ease 0s',
+            // Rotate the path
+          },
+          // Customize the circle behind the path, i.e. the "total progress"
+          trail: {
+            // Trail color
+            stroke: '#000',
+            // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+            strokeLinecap: 'butt',
+            // Rotate the trail
+          },
+          // Customize the text
+          text: {
+            // Text color
+            fill: '#fff',
+            // Text size
+            fontSize: `${options.chartTextSize}px`,
+          },
+          // Customize background - only used when the `background` prop is true
+          background: {
+            fill: 'transparent',
+          },
+        }}
+      />
     </div>
   );
 };
@@ -101,13 +86,6 @@ const getStyles = stylesFactory(() => {
     wrapper: css`
       font-family: Roboto;
       position: relative;
-    `,
-    mainContainer: css`
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
     `,
   };
 });
