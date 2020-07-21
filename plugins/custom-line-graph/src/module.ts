@@ -6,19 +6,20 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel)
   .setPanelOptions((builder) => {
     return builder
     .addTextInput({
-      path: 'title',
-      name: 'Title',
-      defaultValue: '',
+      path: 'primaryColorSet',
+      name: 'Primary Color Set',
+      description: 'Describe the color names/codes with comma(,) separated values eg:red,green,#fff',
     })
-    .addTextInput({
-      path: 'colorSet',
-      name: 'Color Set',
-      description: 'Describe the color set with comma(,) separated values eg:red,green,blue',
-      defaultValue: 'red,orange,blue',
+    .addBooleanSwitch({
+      path: 'showLineGradient',
+      name: 'Show Line Gradient',
+      defaultValue: false,
     })
-    .addUnitPicker({
-      path: 'unitPicker',
-      name: 'Select Unit Picker',
+   .addTextInput({
+      path: 'secondaryColorSet',
+      name: 'Secondary Color Set',
+      description: 'Describe the color names/codes with comma(,) separated values eg:red,green,#fff',
+      showIf: config => config.showLineGradient,
     })
     .addBooleanSwitch({
       path: 'showLegend',
@@ -38,12 +39,12 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel)
     .addNumberInput({
       path: 'xAxisTickSize',
       name: 'X-Axis Tick Size',
-      defaultValue: 6,
+      defaultValue: 5,
     })
     .addNumberInput({
       path: 'yAxisTickSize',
       name: 'Y-Axis Tick Size',
-      defaultValue: 6,
+      defaultValue: 5,
     })
     .addSelect({
       path: 'lineWidth',
@@ -63,7 +64,53 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel)
             value: '3',
             label: '3',
           },
+          {
+            value: '4',
+            label: '4',
+          },
+          {
+            value: '5',
+            label: '5',
+          },
+          {
+            value: '6',
+            label: '6',
+          },
         ],
       },
-    });
+    })
+    .addRadio({
+      path: 'yAxisFormat',
+      defaultValue: '.1s',
+      name: 'Y-axis Unit Format',
+      settings: {
+        options: [
+          {
+            value: '',
+            label: 'None',
+          },
+          {
+            value: '.1s',
+            label: 'Thousands',
+          },
+        ],
+      },
+    })
+    .addRadio({
+      path: 'tooltipValues',
+      defaultValue: 'none',
+      name: 'Show tooltip values in',
+      settings: {
+        options: [
+          {
+            value: 'none',
+            label: 'None',
+          },
+          {
+            value: 'decimals',
+            label: 'Decimals',
+          },
+        ],
+      },
+    })
 });

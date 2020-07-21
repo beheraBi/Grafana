@@ -26,5 +26,6 @@
   },
   "dependencies": {
     "d3": "^5.16.0",
+    "short-uuid": "^3.1.1"
   }
 }

@@ -1,3 +1,19 @@
+.y-axis,.x-axis{
+  font-family: inherit;
+  font-style: normal;
+font-weight: normal;
+font-size: 12px;
+line-height: 21px;
+color: #FFFFFF;
+}
+
+.y-axis {
+  text-align: right;
+}
+
+.x-axis {
+  text-align: center;
+}
 .y-axis line {
 	opacity: 0;
   }
@@ -15,14 +31,13 @@
   }
 
   .hoverCircle {
-	opacity: 0.75;
+	opacity: 1;
 	color:white;
   }
 
   .domain{
 	  stroke: none;
   }
-
   .legend-container{
     position: absolute;
     top: 90%;
@@ -31,7 +46,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
   }
 
   .legend-item{
@@ -41,8 +55,33 @@
   }
 
   .legend-rect{
-    height: 3px;
-    width: 15px;
+    height: 2px;
+    width: 18.96px;
     margin-right:5px ;
+    
   }
 
+  .legend-text{
+    font-family: inherit;
+    font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 21px;
+color: #D9DADC;
+  }
+  .area{
+    pointer-events: none;
+  }
+
+  .textBgRect{
+    background: #2E3539;
+    z-index: 1000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .lineHoverText{
+    font-family: inherit;
+font-style: normal;
+font-weight: bold;
+font-size:10px;
+  }
