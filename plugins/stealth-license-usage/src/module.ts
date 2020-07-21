@@ -2,39 +2,33 @@ import { PanelPlugin } from '@grafana/data';
 import { SimpleOptions } from './types';
 import { SimplePanel } from './SimplePanel';
 
-export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOptions(builder => {
+export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel)
+  .useFieldConfig()
+  .setPanelOptions(builder => {
   return builder
     .addTextInput({
-      path: 'text',
-      name: 'Simple text option',
-      description: 'Description of panel option',
-      defaultValue: 'Default value of text input option',
+      path: 'licenseUsageText',
+      name: 'License Usage Text',
+      defaultValue: 'Peak Client License Usage',
     })
-    .addBooleanSwitch({
-      path: 'showSeriesCount',
-      name: 'Show series counter',
-      defaultValue: false,
+    .addTextInput({
+      path: 'totalMaxVariable',
+      name: 'Total Max Variable Name',
+      description: 'License Status Total Max Variable Name eg: licenseClientMax',
     })
-    .addRadio({
-      path: 'seriesCountSize',
-      defaultValue: 'sm',
-      name: 'Series counter size',
-      settings: {
-        options: [
-          {
-            value: 'sm',
-            label: 'Small',
-          },
-          {
-            value: 'md',
-            label: 'Medium',
-          },
-          {
-            value: 'lg',
-            label: 'Large',
-          },
-        ],
-      },
-      showIf: config => config.showSeriesCount,
-    });
+    .addNumberInput({
+      path: 'chartSize',
+      name: 'Chart Size',
+      defaultValue: 150,
+    })
+    .addNumberInput({
+      path: 'strokewidth',
+      name: 'Stroke Width',
+      defaultValue: 15,
+    })
+    .addNumberInput({
+      path: 'chartTextSize',
+      name: 'Chart Text Size',
+      defaultValue: 20,
+    })
 });

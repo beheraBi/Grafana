@@ -3,12 +3,33 @@ import { PanelProps } from '@grafana/data';
 import { SimpleOptions } from 'types';
 import { css, cx } from 'emotion';
 import { stylesFactory, useTheme } from '@grafana/ui';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import './SimplePanel.css';
 
 interface Props extends PanelProps<SimpleOptions> {}
 
-export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) => {
-  const theme = useTheme();
+export const SimplePanel: React.FC<Props> = props => {
+  const { options, data, width, height, replaceVariables } = props;
   const styles = getStyles();
+  
+  const licenseUsageMax = replaceVariables(`$${options.totalMaxVariable}`);
+
+  let strokeColor = 'red';
+  let dataValues = data['series'][0]['fields'][1]['values']['buffer'];
+  let totalInUseValues = data['series'][1]['fields'][1]['values']['buffer'];
+
+  let percentage = dataValues[dataValues.length - 1].toFixed(2);
+  let totalInUse = totalInUseValues[totalInUseValues.length - 1];
+
+  let thresholds = props.fieldConfig.defaults.thresholds?.steps || [];
+
+  for (const iterator of thresholds) {
+    if (percentage >= iterator.value) {
+      strokeColor = iterator.color;
+    }
+  }
+
   return (
     <div
       className={cx(
@@ -19,30 +40,55 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
         `
       )}
     >
-      <svg
-        className={styles.svg}
-        width={width}
-        height={height}
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
-        viewBox={`-${width / 2} -${height / 2} ${width} ${height}`}
-      >
-        <g>
-          <circle style={{ fill: `${theme.isLight ? theme.palette.greenBase : theme.palette.blue95}` }} r={100} />
-        </g>
-      </svg>
-
-      <div className={styles.textBox}>
-        {options.showSeriesCount && (
-          <div
-            className={css`
-              font-size: ${theme.typography.size[options.seriesCountSize]};
-            `}
-          >
-            Number of series: {data.series.length}
-          </div>
-        )}
-        <div>Text option value: {options.text}</div>
+      <div className="flex-container">
+        <div>
+        <CircularProgressbar
+          value={percentage}
+          text={`${percentage}%`}
+          strokeWidth={options.strokewidth}
+          styles={{
+            // Customize the root svg element
+            root: {
+              width: `${options.chartSize}px`,
+              height: `${options.chartSize}px`,
+            },
+            // Customize the path, i.e. the "completed progress"
+            path: {
+              // Path color
+              stroke: `${strokeColor}`,
+              // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+              strokeLinecap: 'butt',
+              // Customize transition animation
+              transition: 'stroke-dashoffset 0.5s ease 0s',
+              // Rotate the path
+            },
+            // Customize the circle behind the path, i.e. the "total progress"
+            trail: {
+              // Trail color
+              stroke: '#000',
+              // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+              strokeLinecap: 'butt',
+              // Rotate the trail
+            },
+            // Customize the text
+            text: {
+              // Text color
+              fill: '#fff',
+              // Text size
+              fontSize: `${options.chartTextSize}px`,
+              fontFamily: 'inherit',
+            },
+            // Customize background - only used when the `background` prop is true
+            background: {
+              fill: 'transparent',
+            },
+          }}
+        />
+       </div>
+        <div className='text-content'>
+          <h4 className='heading-primary'>{totalInUse}<span className='heading-secondary'>/{licenseUsageMax}</span></h4>
+          <p className='license-usage-text'> {options.licenseUsageText} </p>
+        </div>
       </div>
     </div>
   );
@@ -51,18 +97,9 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
 const getStyles = stylesFactory(() => {
   return {
     wrapper: css`
+      font-family: Roboto;
       position: relative;
-    `,
-    svg: css`
-      position: absolute;
-      top: 0;
-      left: 0;
-    `,
-    textBox: css`
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      padding: 10px;
+      background: #0C0F24;
     `,
   };
 });

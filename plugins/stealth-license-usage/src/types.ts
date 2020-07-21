@@ -1,7 +1,7 @@
-type SeriesSize = 'sm' | 'md' | 'lg';
-
 export interface SimpleOptions {
-  text: string;
-  showSeriesCount: boolean;
-  seriesCountSize: SeriesSize;
+  licenseUsageText: string;
+  totalMaxVariable: string;
+  chartSize: number;
+  strokewidth: number;
+  chartTextSize: number;
 }
