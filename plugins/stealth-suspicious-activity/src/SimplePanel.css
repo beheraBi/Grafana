@@ -1,0 +1,62 @@
+.main-text{
+    font-family: Roboto;
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 21px;
+/* or 150% */
+color: #E7E7E7;
+
+}
+
+.stat-box{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-top: 1rem;
+}
+
+.heading-text{
+    display: flex;
+    padding-bottom: 5px;
+}
+
+.heading-number{
+font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 40px;
+line-height: 21px;
+/* or 52% */
+
+color: #D5D7DD;
+padding-right: 3px;
+}
+
+.arrow-up{
+    color:#CD1543;
+    font-size: 1rem;
+}
+
+.arrow-down{
+    color:#3DB75E;;
+    font-size: 1rem;
+}
+
+.para-text{
+    font-family: inherit;
+font-style: normal;
+font-weight: 500;
+font-size: 10px;
+line-height: 11px;
+/* or 110% */
+
+color: #D9DADC;
+}
+
+.icon-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    
+}
