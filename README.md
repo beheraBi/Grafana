@@ -1,7 +1,7 @@
 <p>
   <img src="https://github.com/grafana/grafana/blob/master/docs/logo-horizontal.png" alt="grafana" />
 </p>
-The open-source platform for monitoring and observability.
+The open-source platform for monitoring and observability!!!.
 <br><br>
 
 Grafana allows you to query, visualize, alert on and understand your metrics no matter where they are stored. Create, explore, and share dashboards with your team and foster a data driven culture:
