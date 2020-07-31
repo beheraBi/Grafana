@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .main>img {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .box {
+            height: 50px;
+            width: 100px;
+            /* border: 1px solid #fff; */
+            position: absolute;
+            z-index: 1;
+        }
+
+        .unauth_connection {
+            top: 69%;
+            left: 37%;
+            width: 30%;
+            height: 74%;
+        }
+
+        .license_usage {
+            top: 69%;
+            left: 7.4%;
+            width: 29%;
+            height: 75%;
+        }
+
+        .main:hover .box {
+            background: #000;
+            opacity: 0.4
+        }
+
+        .main .box:hover:not(.dark-box) {
+            background: transparent !important;
+        }
+
+        .dark-box {
+            height: 68%;
+            top: 0;
+            width: 99%;
+        }
+
+        .tooltip {
+            border: 1px solid #fff;
+            border-radius: 5px;
+            position: absolute;
+            z-index: 2;
+            color: #000;
+            padding: 7px;
+            opacity: 0;
+            background: #fff;
+        }
+
+        .tooltip_unauth_connection {
+            width: 30%;
+            top: 40%;
+            left: 40%;
+        }
+
+        .box.unauth_connection:hover+.tooltip {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main">
+        <img alt="image" src="../images/Stable-Status.svg">
+        <!-- <div class="main-box"> -->
+        <div class="box unauth_connection"></div>
+        <div class="tooltip tooltip_unauth_connection">
+            <p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+            </p>
+        </div>
+
+        <div class="box license_usage"></div>
+
+        
+        <div class="box dark-box"></div>
+        <!-- </div> -->
+
+
+    </div>
+
+</body>
+
+</html>
