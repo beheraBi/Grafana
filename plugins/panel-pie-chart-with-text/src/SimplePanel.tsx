@@ -64,13 +64,6 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height, id 
       return <GoTriangleUp className='arrow-up' />
     }else if(differenceCount < 0){
       return <GoTriangleDown className='arrow-down' />
-    }else {
-      return (
-          <div className='icon-list'>
-      <GoTriangleUp className='arrow-up' /> 
-      <GoTriangleDown className='arrow-down' style={{marginBottom:'5px'}} />
-      </div>
-      )
     }
   }
 
