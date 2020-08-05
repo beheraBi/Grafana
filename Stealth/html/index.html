@@ -32,7 +32,7 @@
 
         .main:hover .box {
             background: #000;
-            opacity: 0.4
+            opacity: 0.8
         }
 
         .main .box:hover:not(.dark-box) {
@@ -65,6 +65,15 @@
         .box.unauth_connection:hover+.tooltip {
             opacity: 1;
         }
+
+        .box.license_usage:hover+.tooltip {
+            opacity: 1;
+        }
+        .tooltip_license_usage {
+            width: 30%;
+            top: 40%;
+            left: 10%;
+        }
     </style>
 </head>
 
@@ -81,9 +90,16 @@
         </div>
 
         <div class="box license_usage"></div>
+        <div class="tooltip tooltip_license_usage">
+            <p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+            </p>
+        </div>
 
-        
+
         <div class="box dark-box"></div>
+
+        <div class="box dark-box cover-panel"></div>
         <!-- </div> -->
 
 

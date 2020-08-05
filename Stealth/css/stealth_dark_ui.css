@@ -349,3 +349,16 @@ div[role="table"] div[role="cell"]:last-child>div {
         font-size: 16px;
     }
 }
+
+/*Margin between panel title and table styles */
+.panel-content--no-padding div[role="table"] {
+    margin-top: 20px;
+    height: calc(100% - 28px);
+}
+.panel-content--no-padding div[role="table"] .view > div {
+    height: 100%;
+}
+
+.panel-content--no-padding div[role="table"] .view > div > div:last-child {
+    height: calc(100% - 34px) !important;
+}
