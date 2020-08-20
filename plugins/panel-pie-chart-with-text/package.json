@@ -24,8 +24,9 @@
   "engines": {
     "node": ">=12 <13"
   },
-   "dependencies": {
+  "dependencies": {
     "html-react-parser": "^0.13.0",
-    "react-icons": "^3.10.0"
+    "react-icons": "^3.10.0",
+    "react-minimal-pie-chart": "^8.0.1"
   }
 }

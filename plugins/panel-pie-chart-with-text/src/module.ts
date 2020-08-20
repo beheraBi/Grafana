@@ -20,11 +20,6 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOption
       description: 'Describe the color names/codes with comma(,) separated values eg:red,green,#fff',
     })
     .addTextInput({
-      path: 'isolatedText',
-      name: 'Isolated Text',
-      defaultValue: 'Users Currently Isolated',
-    })
-    .addTextInput({
       path: 'activityText',
       name: 'Activity Text',
       defaultValue: 'more in the last past hour',
