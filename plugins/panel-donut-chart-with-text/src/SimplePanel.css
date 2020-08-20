@@ -14,7 +14,7 @@ font-weight: 500;
 font-size: 40px;
 line-height: 21px;
 /* or 52% */
-color: #D5D7DD;
+/*color: #D5D7DD;*/
 padding-top: 2rem;
 }
 
@@ -25,7 +25,8 @@ font-weight: 500;
 font-size: 20px;
 line-height: 21px;
 /* or 105% */
-color: rgba(255, 255, 255, 0.5);
+/*color: rgba(255, 255, 255, 0.5);*/
+color: #A4ACB3;
 }
 
 .license-usage-text{
@@ -35,5 +36,5 @@ font-weight: 500;
 font-size: 13px;
 line-height: 20px;
 /* or 154% */
-color: #D5D7DD;
+/*color: #D5D7DD;*/
 }

@@ -11,10 +11,10 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel)
       name: 'License Usage Text',
       defaultValue: 'Peak Client License Usage',
     })
-    .addTextInput({
-      path: 'totalMaxVariable',
-      name: 'Total Max Variable Name',
-      description: 'License Status Total Max Variable Name eg: licenseClientMax',
+    .addBooleanSwitch({
+      path: 'showDonutChart',
+      name: 'Show Donut Chart',
+      defaultValue: false,
     })
     .addNumberInput({
       path: 'chartSize',
@@ -25,6 +25,13 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel)
       path: 'strokewidth',
       name: 'Stroke Width',
       defaultValue: 15,
+      showIf: config => !config.showDonutChart
+    })
+    .addNumberInput({
+      path: 'pieChartStrokeWidth',
+      name: 'Stroke Width',
+      defaultValue: 35,
+      showIf: config => config.showDonutChart
     })
     .addNumberInput({
       path: 'chartTextSize',

@@ -24,7 +24,9 @@
   "engines": {
     "node": ">=12 <13"
   },
-   "dependencies": {
-    "react-circular-progressbar": "^2.0.3"
+  "dependencies": {
+    "html-react-parser": "^0.13.0",
+    "react-circular-progressbar": "^2.0.3",
+    "react-minimal-pie-chart": "^8.0.1"
   }
 }
