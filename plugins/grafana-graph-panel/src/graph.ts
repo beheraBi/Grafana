@@ -1,13 +1,14 @@
-import 'grafana/vendor/flot/jquery.flot.js';
-import 'grafana/vendor/flot/jquery.flot.time.js';
-import 'grafana/vendor/flot/jquery.flot.selection.js';
-import 'grafana/vendor/flot/jquery.flot.stack.js';
-import 'grafana/vendor/flot/jquery.flot.stackpercent.js';
-import 'grafana/vendor/flot/jquery.flot.fillbelow.js';
-import 'grafana/vendor/flot/jquery.flot.crosshair.js';
-import 'grafana/vendor/flot/jquery.flot.dashes.js';
-import 'grafana/vendor/flot/jquery.flot.gauge.js';
+import './grafana/vendor/flot/jquery.flot.js';
+import './grafana/vendor/flot/jquery.flot.time.js';
+import './grafana/vendor/flot/jquery.flot.selection.js';
+import './grafana/vendor/flot/jquery.flot.stack.js';
+import './grafana/vendor/flot/jquery.flot.stackpercent.js';
+import './grafana/vendor/flot/jquery.flot.fillbelow.js';
+import './grafana/vendor/flot/jquery.flot.crosshair.js';
+import './grafana/vendor/flot/jquery.flot.dashes.js';
+import './grafana/vendor/flot/jquery.flot.gauge.js';
 //import 'grafana/vendor/flot/jquery.flot.pie.js';
+
 import './vendor/flot/jquery.flot.events';
 import { EventManager } from './vendor/grafana/event_manager';
 import { updateLegendValues } from './vendor/grafana/time_series2';
@@ -304,6 +305,8 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
 
       function buildFlotOptions(panel) {
         const stack = panel.stack ? true : null;
+        var isLight = ctrl.contextSrv.user.lightTheme || false;
+
         let options = {
           hooks: {
             draw: [drawHook],
@@ -313,7 +316,7 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
           series: {
             stackpercent: panel.stack ? panel.percentage : false,
             stack: panel.percentage ? null : stack,
-            highlightColor: '#fff',
+            // highlightColor: 'green',
             lines: {
               show: panel.lines,
               zero: false,
@@ -360,7 +363,7 @@ function graphDirective(timeSrv, popoverSrv, contextSrv) {
           },
           crosshair: {
             mode: 'x',
-            color: 'rgb(255, 255, 255)',
+            color: `${isLight? '#828282' : '#fff'}`,
           },
         };
         return options;

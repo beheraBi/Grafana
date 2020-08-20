@@ -61,6 +61,8 @@
 					<select class="gf-form-input" ng-model="ctrl.panel.tooltip.sort" ng-options="f.value as f.text for f in [{text: 'None', value: 0}, {text: 'Increasing', value: 1}, {text: 'Decreasing', value: 2}]" ng-change="ctrl.render()"></select>
 				</div>
 			</div>
+			<gf-form-switch class="gf-form" label="Show Date & Time" label-class="width-8" checked="ctrl.panel.showDateTime" on-change="ctrl.render()">
+			</gf-form-switch>
 			<div class="gf-form" ng-show="ctrl.panel.stack">
 				<label class="gf-form-label width-9">Stacked value</label>
 				<div class="gf-form-select-wrapper max-width-8">

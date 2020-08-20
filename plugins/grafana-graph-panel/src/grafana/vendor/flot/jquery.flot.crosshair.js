@@ -63,14 +63,11 @@ The plugin also adds four public methods:
         crosshair: {
             mode: null, // one of null, "x", "y" or "xy",
             color: "rgba(170, 0, 0, 0.80)",
-            lineWidth: 1,
-            bgColor: "#eb542a"
+            lineWidth: 1
         }
     };
     
     function init(plot) {
-        console.log('plot==', plot)
-
         // position of crosshair in pixels
         var crosshair = { x: -1, y: -1, locked: false };
 
@@ -132,7 +129,6 @@ The plugin also adds four public methods:
         });
 
         plot.hooks.drawOverlay.push(function (plot, ctx) {
-            console.log('crosshari==', ctx)
             var c = plot.getOptions().crosshair;
             if (!c.mode)
                 return;
@@ -148,8 +144,7 @@ The plugin also adds four public methods:
                 ctx.strokeStyle = c.color;
                 ctx.lineWidth = c.lineWidth;
                 ctx.lineJoin = "round";
-                ctx.highlightColor = c.bgColor;
-                
+                ctx.globalAlpha = 0.4;
 
                 ctx.beginPath();
                 if (c.mode.indexOf("x") != -1) {
@@ -163,6 +158,8 @@ The plugin also adds four public methods:
                     ctx.lineTo(plot.width(), drawY);
                 }
                 ctx.stroke();
+                
+
             }
             ctx.restore();
         });

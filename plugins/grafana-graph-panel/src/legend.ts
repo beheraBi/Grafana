@@ -40,7 +40,7 @@ module.directive('somethingElseLegend', function (popoverSrv, $timeout) {
           return;
         }
 
-        var el = $(e.currentTarget).find('.fa-minus');
+        var el = $(e.currentTarget).find('.fa-circle');
         var index = getSeriesIndexForElement(el);
         var series = seriesList[index];
 
@@ -193,15 +193,15 @@ module.directive('somethingElseLegend', function (popoverSrv, $timeout) {
             html += ' graph-legend-series-hidden';
           }
           html += '" data-series-index="' + i + '">';
-          html += '<div class="graph-legend-icon">';
+          html += '<div class="graph-legend-icon stealth-graph-legend-icon" style="top:-2px;">';
           html +=
-            '<i class="fa fa-minus pointer" style="color:' +
+            '<i class="fa fa-circle pointer" style="color:' +
             series.color +
-            '"></i>';
+            ';font-size:10px;"></i>';
           html += '</div>';
 
           html +=
-            '<a class="graph-legend-alias pointer" title="' +
+            '<a class="graph-legend-alias pointer stealth-graph-legend-alias" title="' +
             series.aliasEscaped +
             '">' +
             series.aliasEscaped +

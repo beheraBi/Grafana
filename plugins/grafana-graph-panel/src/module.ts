@@ -109,6 +109,7 @@ class GraphCtrl extends MetricsPanelCtrl {
     // other style overrides
     seriesOverrides: [],
     thresholds: [],
+    showDateTime: false
   };
 
   /** @ngInject */

@@ -12,13 +12,15 @@ function ($, core) {
     var ctrl = scope.ctrl;
     var panel = ctrl.panel;
 
-    var $tooltip = $('<div class="graph-tooltip">');
+    var isLight = ctrl.contextSrv.user.lightTheme || false;
+    
+    var $tooltip = $(`<div class="graph-tooltip" style="background:${isLight? '#fff' : '#2E3539'};box-shadow:${isLight? '0px 4px 24px rgba(0, 0, 0, 0.13);' : '0px 4px 4px rgba(0, 0, 0, 0.25);'};border-radius: ${isLight? '8px' : 0};padding: 6px;color:${isLight? '#2B2B2B' : '#fff'};">`);
 
     this.destroy = function() {
       $tooltip.remove();
     };
 
-    this.findHoverIndexFromDataPoints = function(posX, series, last) {
+    this.findHoverIndexFromDataPoints = function (posX, series, last) {
       var ps = series.datapoints.pointsize;
       var initial = last*ps;
       var len = series.datapoints.points.length;
@@ -184,7 +186,7 @@ function ($, core) {
       // if panelRelY is defined another panel wants us to show a tooltip
       // get pageX from position on x axis and pageY from relative position in original panel
       if (pos.panelRelY) {
-        var pointOffset = plot.pointOffset({x: pos.x});
+        var pointOffset = plot.pointOffset({x: pos.x });
         if (Number.isNaN(pointOffset.left) || pointOffset.left < 0 || pointOffset.left > elem.width()) {
           self.clear(plot);
           return;
@@ -222,7 +224,13 @@ function ($, core) {
 
         seriesHtml = '';
 
-        absoluteTime = dashboard.formatDate(seriesHoverInfo.time, tooltipFormat);
+        // absoluteTime = dashboard.formatDate(seriesHoverInfo.time, tooltipFormat);
+            
+        if (panel.showDateTime) {
+          absoluteTime = dashboard.formatDate(seriesHoverInfo.time, tooltipFormat);
+        } else { 
+          absoluteTime = ''
+        }
 
         // Dynamically reorder the hovercard for the current time point if the
         // option is enabled.
@@ -253,18 +261,18 @@ function ($, core) {
           value = series.formatValue(hoverInfo.value);
 
           seriesHtml += '<div class="graph-tooltip-list-item ' + highlightClass + '"><div class="graph-tooltip-series-name">';
-          seriesHtml += '<i class="fa fa-minus" style="color:' + hoverInfo.color +';"></i> ' + hoverInfo.label + ':</div>';
-          seriesHtml += '<div class="graph-tooltip-value">' + value + '</div></div>';
+          seriesHtml += '<i class="fa fa-circle" style="font-size: 5px; position: relative; top : -2px;color:' + hoverInfo.color +';"></i> '  + '</div>';
+          seriesHtml += '<div class="graph-tooltip-value" style="    transform: translateX(-10px);">' + value + '</div></div>';
           plot.highlight(hoverInfo.index, hoverInfo.hoverIndex);
         }
-        seriesHtml += '<div class="graph-tooltip-value"> Y-axis: ' + pos.y.toFixed(4) + '</div></div>';
+        // seriesHtml += '<div class="graph-tooltip-value"> Y-axis: ' + pos.y.toFixed(4) + '</div></div>';
         self.renderAndShow(absoluteTime, seriesHtml, pos, xMode);
       }
       // single series tooltip
       else if (item) {
         series = seriesList[item.seriesIndex];
         group = '<div class="graph-tooltip-list-item"><div class="graph-tooltip-series-name">';
-        group += '<i class="fa fa-minus" style="color:' + item.series.color +';"></i> ' + series.aliasEscaped + ':</div>';
+        group += '<i class="fa fa-circle" style="color:' + item.series.color +';"></i> ' + series.aliasEscaped + ':</div>';
 
         if (panel.stack && panel.tooltip.value_type === 'individual') {
           value = item.datapoint[1] - item.datapoint[2];
