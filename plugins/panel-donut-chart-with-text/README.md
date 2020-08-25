@@ -11,10 +11,10 @@
 This template is a starting point for building Grafana Panel Plugins in Grafana 7.0+
 
 
-![alt text](https://github.com/beheraBi/Grafana/blob/master/plugins/panel-donut-chart-with-text/src/img/panelImage.png | width=100)
-![alt text](https://github.com/beheraBi/Grafana/blob/master/plugins/panel-donut-chart-with-text/src/img/panelImage1.png | width=100)
-![alt text](https://github.com/beheraBi/Grafana/blob/master/plugins/panel-donut-chart-with-text/src/img/panelImage2.png | width=100)
-![alt text](https://github.com/beheraBi/Grafana/blob/master/plugins/panel-donut-chart-with-text/src/img/editoroptions.png | width=100)
+![alt text](https://github.com/beheraBi/Grafana/blob/master/plugins/panel-donut-chart-with-text/src/img/panelImage.png)
+![alt text](https://github.com/beheraBi/Grafana/blob/master/plugins/panel-donut-chart-with-text/src/img/panelImage1.png)
+![alt text](https://github.com/beheraBi/Grafana/blob/master/plugins/panel-donut-chart-with-text/src/img/panelImage2.png)
+![alt text](https://github.com/beheraBi/Grafana/blob/master/plugins/panel-donut-chart-with-text/src/img/editoroptions.png)
 
 
 ## What is Grafana Panel Plugin?

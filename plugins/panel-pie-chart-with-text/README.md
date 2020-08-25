@@ -10,8 +10,8 @@
 
 This template is a starting point for building Grafana Panel Plugins in Grafana 7.0+
 
-![alt text](https://github.com/beheraBi/Grafana/blob/master/plugins/panel-pie-chart-with-text/src/img/panelImage.png | width=100)
-![alt text](https://github.com/beheraBi/Grafana/blob/master/plugins/panel-pie-chart-with-text/src/img/editableOptions.PNG | width=100)
+![alt text](https://github.com/beheraBi/Grafana/blob/master/plugins/panel-pie-chart-with-text/src/img/panelImage.png)
+![alt text](https://github.com/beheraBi/Grafana/blob/master/plugins/panel-pie-chart-with-text/src/img/editableOptions.PNG)
 
 
 ## What is Grafana Panel Plugin?
