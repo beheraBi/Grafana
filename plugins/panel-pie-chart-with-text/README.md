@@ -10,6 +10,9 @@
 
 This template is a starting point for building Grafana Panel Plugins in Grafana 7.0+
 
+![alt text](https://github.com/beheraBi/Grafana/blob/master/plugins/panel-pie-chart-with-text/src/img/panelImage.png | width=100)
+![alt text](https://github.com/beheraBi/Grafana/blob/master/plugins/panel-pie-chart-with-text/src/img/editableOptions.PNG | width=100)
+
 
 ## What is Grafana Panel Plugin?
 Panels are the building blocks of Grafana. They allow you to visualize data in different ways. While Grafana has several types of panels already built-in, you can also build your own panel, to add support for other visualizations.
